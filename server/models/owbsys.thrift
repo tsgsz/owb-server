@@ -44,4 +44,5 @@ struct OwbServerHbPack {
 1: required string mname;
 2: required string ip;
 3: required i32 job_num;
+4: required i32 port;
 }

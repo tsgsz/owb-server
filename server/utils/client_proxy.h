@@ -5,6 +5,7 @@
 #define OWB_SERVER_UTILS_CLIENT_PROXY_H_
 
 #include <exception>
+#include <string>
 
 #include "common/base/singleton.h"
 #include "thirdparty/boost/shared_ptr.hpp"
@@ -17,16 +18,15 @@
 
 #include "owb/server/common/common.h"
 
-namespace owb{
-namespace server{
-namespace utils{
+namespace owb {
+namespace server {
+namespace utils {
 
 class NotInitException : public std::exception {
-
 };
 
 template<typename T>
-class ClientProxy : public common::SingletonBase< ClientProxy<T> >{
+class ClientProxy : public common::SingletonBase< ClientProxy<T> > {
 public:
     void Init(std::string ip, int port);
     void Open();
@@ -47,6 +47,7 @@ using ::apache::thrift::transport::TSocket;
 using ::apache::thrift::transport::TBufferedTransport;
 using ::apache::thrift::protocol::TProtocol;
 using ::apache::thrift::protocol::TBinaryProtocol;
+using ::boost::shared_ptr;
 
 template<typename T>
 ClientProxy<T>::ClientProxy() {
@@ -62,10 +63,10 @@ ClientProxy<T>::~ClientProxy() {
 
 template<typename T>
 void ClientProxy<T>::Init(std::string ip, int port) {
-    if(isInited_) return;
+    if (isInited_) return;
     ::boost::shared_ptr<TTransport> socket(new TSocket(ip, port));
-    transport_ = ::boost::shared_ptr<TTransport>(new TBufferedTransport(socket));
-    ::boost::shared_ptr<TProtocol> protocol(new TBinaryProtocol(transport_));
+    transport_ = shared_ptr<TTransport>(new TBufferedTransport(socket));
+    shared_ptr<TProtocol> protocol(new TBinaryProtocol(transport_));
     client_ = new T(protocol);
     isInited_ = true;
 }

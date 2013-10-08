@@ -15,6 +15,7 @@ CREATE TABLE `OwbMeeting` (
 CREATE TABLE `OwbMachine` (
     `mname` VARCHAR(255) NOT NULL,
     `ip` VARCHAR(255) NOT NULL,
+    `port` INT(11) NOT NULL,
     `status` INT(11) NOT NULL DEFAULT 0,
     `hbtime` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(`mname`)

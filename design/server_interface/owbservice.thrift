@@ -26,7 +26,7 @@ service monitor {
 
 service manager {
     bool Login(1:owbsys.OwbUser user);
-    owbsys.OwbServerInfo JoinMeeting(1:string uname, 2:string mid) throws (1:owbsys.OwbMissingMeeting mmiss, 2:owbsys.OwbDeadMeeting mdead);
+    owbsys.ServerInfo JoinMeeting(1:string uname, 2:string mid) throws (1:owbsys.OwbMissingMeeting mmiss, 2:owbsys.OwbDeadMeeting mdead);
     string CreateMeeting(1:string uname);
     bool HeartBeatWithMonitor(1:owbsys.OwbServerHbPack pack);
     bool MeetingOver(1:string mid);
